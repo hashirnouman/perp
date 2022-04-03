@@ -37,10 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pharmaAdmin',
     'rest_framework',
     'accounts',
-    'corsheaders'
+    'corsheaders',
+    'pos'
+    
 ]
 
 
