@@ -2,21 +2,21 @@ from django.db import models
 
 # Create your models here.
 class Categories(models.Model):
-    category =  models.CharField(max_length=255, default=None, unique=True)
+    category =  models.CharField(max_length=255,  unique=True)
 
 class SubCategory(models.Model):
-    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT, default=None)
-    sub_category=models.CharField(max_length=255, default=None, unique=True)
+    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT)
+    sub_category=models.CharField(max_length=255,  unique=True)
 
 class Drugs(models.Model):
     drug_name = models.TextField(default=None)
-    manufacturer_name= models.TextField(default=None)
-    salt_name= models.TextField(default=None)
-    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT,default=None, )
-    price_per_packet = models.IntegerField(default=None)
-    units_per_packet = models.IntegerField(default=None)
-    potency=models.IntegerField(default=None)
-    variant = models.CharField(max_length=255, default=None)
+    manufacturer_name= models.TextField()
+    salt_name= models.TextField()
+    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT, )
+    price_per_packet = models.IntegerField()
+    units_per_packet = models.IntegerField()
+    potency=models.IntegerField()
+    variant = models.CharField(max_length=255)
 
 
 class Customers(models.Model):
@@ -39,7 +39,7 @@ class Order_item(models.Model):
     total = models.FloatField(default=None)
 
 class MedicineStock(models.Model):
-    invoice_number = models.IntegerField(default=None)
+    invoice_number = models.IntegerField( unique=True)
     supplier_name = models.TextField(default=None)
     supplier_contact = models.TextField(default=None)
     total_quantity = models.IntegerField(default=None)
