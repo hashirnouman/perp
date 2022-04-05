@@ -5,7 +5,7 @@ import { Sliderdata } from '../utils/Sliderdata'
 const Sidebar = () => {
     return (
         <div>
-            <Box h="100vh" w={250} bg="blue.800" p={5} minH="100vh">
+            <Box w={250} bg="blue.800" p={5} minH="100%">
                 <Text color="blue.50">
                     <VStack
                         spacing={7}

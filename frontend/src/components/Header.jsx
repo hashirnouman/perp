@@ -11,7 +11,7 @@ const Header = ({ locationName }) => {
         await fetch('http://localhost:8000/api/logout', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-           
+
         });
         setRedirect(true);
         if (redirect) {
@@ -22,7 +22,7 @@ const Header = ({ locationName }) => {
 
     }
     return (
-        <Box bg="blue.100" p={4}>
+        <Box bg="gray.200" p={4}>
             <HStack>
 
                 <Heading size='md'>

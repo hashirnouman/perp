@@ -7,14 +7,20 @@ import { useLocation } from 'react-router-dom'
 const AdminLayouts = ({ children }) => {
     const location = useLocation()
     return (
-        <div>
+        <div style={{ 'scrollBehavior': 'unset' }}>
             <Flex>
+
+
                 <Sidebar />
+
                 <Flex direction="column" grow={5}>
 
                     <Header locationName={location.pathname} />
-                    <Box bg="gray.100" minH="91vh" p={2}>
-                        {children}
+                    <Box bg="gray.200" minH="91vh" p={2}>
+                        <div style={{ 'overflowY': 'auto' }}>
+
+                            {children}
+                        </div>
                     </Box>
 
                 </Flex>
