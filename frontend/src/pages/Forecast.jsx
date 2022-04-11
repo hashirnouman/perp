@@ -1,12 +1,12 @@
-import React from 'react'
-import AdminLayouts from '../Layouts/AdminLayouts'
+import React from "react";
+import AdminLayouts from "../Layouts/AdminLayouts";
 
 const Forecast = () => {
-    return (
-        <AdminLayouts>
-            Forecast
-        </AdminLayouts>
-    )
-}
+  return (
+    <div>
+      <AdminLayouts>Forecast</AdminLayouts>
+    </div>
+  );
+};
 
-export default Forecast
+export default Forecast;

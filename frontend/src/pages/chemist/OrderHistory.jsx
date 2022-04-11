@@ -1,12 +1,15 @@
-import React from 'react'
-import ChemistLayout from '../../Layouts/ChemistLayout'
+import React from "react";
+import OrderHistroyTable from "../../components/chemistComponents/OrderHistroyTable";
+import ChemistLayout from "../../Layouts/ChemistLayout";
 
 const OrderHistory = () => {
-    return (
-        <ChemistLayout>
-            OrderHistory
-        </ChemistLayout>
-    )
-}
+  return (
+    <div>
+      <ChemistLayout>
+        <OrderHistroyTable />
+      </ChemistLayout>
+    </div>
+  );
+};
 
-export default OrderHistory
+export default OrderHistory;

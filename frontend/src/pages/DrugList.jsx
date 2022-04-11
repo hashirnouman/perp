@@ -1,13 +1,12 @@
-import { Center, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
-
 import React, { useState, useEffect } from "react";
+import { Center, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
+import "./styles/Home.css"
 import AdminLayouts from "../Layouts/AdminLayouts";
 import AddDrug from "../components/AddDrug";
 import Category from "../components/Category";
 const DrugList = () => {
   const [categories, setCategories] = useState([]);
   const [sub_categories, setSubCategories] = useState([]);
-  const [fetched, setFetch] = useState(false);
   useEffect(() => {
     const abortController = new AbortController();
     Promise.all([
@@ -25,14 +24,12 @@ const DrugList = () => {
         .then((data) => {
           setSubCategories(data);
         }),
-    ]).then(() => {
-      setFetch(true);
-    });
+    ]).then(() => {});
     return () => abortController.abort();
   }, []);
 
   return (
-    <div>
+    <div className="main">
       <AdminLayouts>
         <Stack>
           <Center>

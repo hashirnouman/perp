@@ -44,14 +44,13 @@ const Category = ({ categories }) => {
     e.preventDefault();
     axios
       .post("http://127.0.0.1:8000/pos/druglist/subcategory", {
-        sub_category: sub_category,
+        sub_category: subCat,
         category_id: id,
       })
       .then((res) => {
         if (res.status == 200) {
           alert("Data added");
           setSubCat("");
-          setId(null);
         }
       });
   };
@@ -102,7 +101,7 @@ const Category = ({ categories }) => {
                       onChange={(e) => setId(e.target.value)}
                     >
                       {categories.map((item, index) => (
-                        <option key={index} value={item.id}>
+                        <option key={item.id} value={item.id}>
                           {item.category}
                         </option>
                       ))}
