@@ -5,18 +5,19 @@ class Categories(models.Model):
     category =  models.CharField(max_length=255,  unique=True)
 
 class SubCategory(models.Model):
-    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT)
+    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT, null=False, blank=True)
     sub_category=models.CharField(max_length=255,  unique=True)
 
 class Drugs(models.Model):
-    drug_name = models.TextField(default=None)
+    drug_name = models.TextField()
     manufacturer_name= models.TextField()
     salt_name= models.TextField()
-    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT, )
+    sub_category_id = models.ForeignKey(SubCategory, on_delete=models.PROTECT, null=False, blank=True)
+    category_id = models.ForeignKey(Categories, on_delete=models.PROTECT, null=False, blank=True, default=None)
     price_per_packet = models.IntegerField()
     units_per_packet = models.IntegerField()
     potency=models.IntegerField()
-    variant = models.CharField(max_length=255)
+    variant = models.TextField()
 
 
 class Customers(models.Model):
@@ -45,5 +46,7 @@ class MedicineStock(models.Model):
     total_quantity = models.IntegerField(default=None)
     total_bill = models.IntegerField(default=None)
     drug_id  = models.ForeignKey(Drugs, on_delete=models.PROTECT, null=False, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
  
     

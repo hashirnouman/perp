@@ -12,6 +12,7 @@ django-cors-headers = "*"
 djangorestframework-simplejwt = "*"
 pyjwt = "*"
 django-model-utils = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 autopep8 = "*"

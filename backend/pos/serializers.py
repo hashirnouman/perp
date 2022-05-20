@@ -5,19 +5,20 @@ from .models import Drugs, Categories, SubCategory, MedicineStock
 class DrugsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drugs
-        fields = '__all__'
+        fields = ['drug_name','manufacturer_name','salt_name','sub_category_id','potency', 'price_per_packet','units_per_packet','variant','category_id']
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Categories
-        fields = ['category']
+        fields = '__all__'
 
 
 class SubCategoriesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubCategory
-        fields = ['sub_category', 'category_id']
+        fields = ['category_id','sub_category']
+        
 
 
 class StockSerializer(serializers.ModelSerializer):
