@@ -23,7 +23,13 @@ import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
 const DrugsTable = ({ drugList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [formData, setFormData] = useState({
-      
+      drug_name:'',
+      salt_name:'',
+      potency:'',
+      price_per_packet:'',
+      units_per_packet:'',
+      variant:''
+
   })
   return (
     <div>
@@ -46,7 +52,7 @@ const DrugsTable = ({ drugList }) => {
                 <Tr>
                   <Td>
                   
-                    <Input value={d.drug_name} />
+                    <Input value={d.drug_name} onChange={(e)=>{e.target.value}} />
                   </Td>
 
                   <Td>{d.manufacturer_name}</Td>

@@ -23,11 +23,11 @@ const medicineListSlicer = createSlice({
   initialState,
   reducers: {
     addMedicine: (drugs, action) => {
-      // drugs.push({
-      //   id: ++lastId,
-      //   counter: 1,
-      //   medicine: action.payload.medicine,
-      // });
+      drugs.push({
+        id: ++lastId,
+        counter: 1,
+        medicine: action.payload.medicine,
+      });
       console.log("medicine added")
     },
     increment(state, action) {

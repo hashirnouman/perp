@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Center, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
-import "./styles/Home.css"
+import {
+  Center,
+  FormControl,
+  HStack,
+  Input,
+  Stack,
+
+} from "@chakra-ui/react";
+import "./styles/Home.css";
+
 import AdminLayouts from "../Layouts/AdminLayouts";
 import AddDrug from "../components/AddDrug";
 import Category from "../components/Category";
+import DrugsTable from "../components/DrugsTable";
+
 const DrugList = () => {
   const [categories, setCategories] = useState([]);
   const [sub_categories, setSubCategories] = useState([]);
+  const [drugList, setDrugList] = useState([]);
   useEffect(() => {
     const abortController = new AbortController();
     Promise.all([
@@ -23,6 +34,13 @@ const DrugList = () => {
         .then((res) => res.json())
         .then((data) => {
           setSubCategories(data);
+        }),
+      fetch("http://127.0.0.1:8000/pos/druglist/drug", {
+        signal: abortController.signal,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setDrugList(data);
         }),
     ]).then(() => {});
     return () => abortController.abort();
@@ -49,6 +67,7 @@ const DrugList = () => {
             </HStack>
           </Center>
         </Stack>
+        <DrugsTable drugList={drugList} />
       </AdminLayouts>
     </div>
   );

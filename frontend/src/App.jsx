@@ -9,8 +9,10 @@ import RemoteOrder from "./pages/chemist/RemoteOrder";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
+
 function App() {
   return (
+    
     <Router>
       <Switch>
         <Route exact path="/">

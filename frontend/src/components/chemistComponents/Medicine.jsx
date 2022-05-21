@@ -1,9 +1,19 @@
-import { IconButton, ButtonGroup, Stack, Flex } from "@chakra-ui/react";
+import React from "react";
+import { IconButton, ButtonGroup, Stack, Flex, Box } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { medicineListActions } from "../../store/medicineList/medicineListSlicer";
 
 const Medicine = ({ med, onDelete }) => {
+  const counter = useSelector((state) => state.medicine.counter);
+  const dispatch = useDispatch();
+  const increment = () => {
+    dispatch(medicineListActions.increment());
+  };
+  const decrement = () => {
+    dispatch(medicineListActions.decrement());
+  };
   return (
     <div>
       <Flex
@@ -13,7 +23,6 @@ const Medicine = ({ med, onDelete }) => {
         justifyContent="space-between"
       >
         <Flex
-          key={med.id}
           minW={400}
           minH={70}
           p={5}
@@ -22,12 +31,25 @@ const Medicine = ({ med, onDelete }) => {
           alignItems="baseline"
           borderRadius={5}
         >
-          <div>
-            <p>{med.task}</p>
-          </div>
+          <Box>
+            <Stack direction="row" spacing={3}>
+              <p>{med.medicine}</p>
+              <p>qunatity: {counter}</p>
+            </Stack>
+          </Box>
           <ButtonGroup>
-            <IconButton icon={<AddIcon />} colorScheme="blue" p={1} />
-            <IconButton icon={<MinusIcon />} colorScheme="blue" p={1} />
+            <IconButton
+              icon={<AddIcon />}
+              colorScheme="blue"
+              p={1}
+              onClick={increment}
+            />
+            <IconButton
+              icon={<MinusIcon />}
+              colorScheme="blue"
+              p={1}
+              onClick={decrement}
+            />
           </ButtonGroup>
         </Flex>
         <IconButton
