@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, useToast } from "@chakra-ui/react";
+import axios from "axios";
 import {
   Button,
   FormControl,
@@ -18,6 +19,7 @@ import {
 import { IoMdAddCircle } from "react-icons/io";
 const AddDrug = ({ categories, sub_categories }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
   const [drug, setDrug] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [salt, setSalt] = useState("");
@@ -30,29 +32,38 @@ const AddDrug = ({ categories, sub_categories }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const drugDetails = {
-      drug,
-      manufacturer,
-      salt,
-      id2,
-      potency,
-      price,
-      unit,
-      variant,
-      id,
-    };
-    console.log(drugDetails);
-    // fetch("http://127.0.0.1:8000/pos/druglist/drug", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(drugDetails),
-    // }).then((res) => {
-    //   if (res.status == 200) {
-    //     console.log(res.json());
-    //   } else {
-    //     throw console.error("error");
-    //   }
-    // });
+    axios
+      .post("http://127.0.0.1:8000/pos/druglist/drug", {
+        drug_name: drug,
+        manufacturer_name: manufacturer,
+        salt_name: salt,
+        sub_category_id: id2,
+        potency: potency,
+        price_per_packet: price,
+        units_per_packet: unit,
+        variant: variant,
+        category_id: id,
+      })
+      .then((res) => {
+        if (res.status == 200) {
+          toast({
+            title: "Drug Updated",
+            description: "We've Updated details of drug.",
+            status: "success",
+            duration: 3000,
+            isClosable: true,
+          });
+          setDrug("");
+          setManufacturer("");
+          setSalt("");
+          setPotency(null);
+          setPrice(null);
+          setVariant("");
+          setUnit(null);
+          setId(null);
+        }
+      });
+    console.log(id2);
   };
   return (
     <div>
@@ -71,7 +82,7 @@ const AddDrug = ({ categories, sub_categories }) => {
             <ModalCloseButton />
             <ModalBody>
               <form onSubmit={handleSubmit}>
-                <FormControl isRequired w={400}>
+                <FormControl>
                   <Stack>
                     <Input
                       placeholder="Enter Medicine name"
@@ -98,7 +109,6 @@ const AddDrug = ({ categories, sub_categories }) => {
                       isRequired
                     />
                     <Select
-                      id="category"
                       placeholder="Select Category"
                       value={id}
                       onChange={(e) => setId(e.target.value)}
@@ -110,10 +120,9 @@ const AddDrug = ({ categories, sub_categories }) => {
                       ))}
                     </Select>
                     <Select
-                      placeholder="Select Sub-Category"
+                      placeholder="Select Category"
                       value={id2}
                       onChange={(e) => setId2(e.target.value)}
-                      isRequired
                     >
                       {sub_categories.map((item, index) => (
                         <option key={index} value={item.id}>
@@ -144,21 +153,22 @@ const AddDrug = ({ categories, sub_categories }) => {
                     />
                   </Stack>
                 </FormControl>
-                <Button variant="solid" type="submit" colorScheme="blue">
-                  Add
-                </Button>
+
+                <ModalFooter>
+                  <Button variant="solid" type="submit" colorScheme="blue">
+                    Add
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    variant="ghost"
+                    mr={3}
+                    onClick={onClose}
+                  >
+                    Close
+                  </Button>
+                </ModalFooter>
               </form>
             </ModalBody>
-            <ModalFooter>
-              <Button
-                colorScheme="blue"
-                variant="ghost"
-                mr={3}
-                onClick={onClose}
-              >
-                Close
-              </Button>
-            </ModalFooter>
           </ModalContent>
         </Modal>
       )}

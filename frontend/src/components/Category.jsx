@@ -23,9 +23,7 @@ import axios from "axios";
 const Category = ({ categories }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [category, setCategory] = useState(null);
-  const [cat, setCat] = useState("");
   const [subCat, setSubCat] = useState("");
-  const [sub_category, setSubCategory] = useState([]);
   const [id, setId] = useState([]);
   const addCategory = (e) => {
     e.preventDefault();
@@ -100,7 +98,7 @@ const Category = ({ categories }) => {
                       value={id}
                       onChange={(e) => setId(e.target.value)}
                     >
-                      {categories.map((item, index) => (
+                      {categories.map((item) => (
                         <option key={item.id} value={item.id}>
                           {item.category}
                         </option>
