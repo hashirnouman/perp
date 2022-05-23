@@ -6,5 +6,6 @@ urlpatterns = [
     path('druglist/category', views.Category),
     path('druglist/subcategory', views.SubCategories),
     path('druglist/drug', views.drug),
+    path('druglist/drug/<int:id>', views.singleDrug),
     path('stock', views.Stock)
 ]

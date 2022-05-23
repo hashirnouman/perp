@@ -59,6 +59,7 @@ MIDDLEWARE = [
     # Note that this needs to be placed above CommonMiddleware
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -76,7 +77,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
             ],
         },
-        
+
     },
 ]
 CORS_ALLOWED_ORIGINS = [
@@ -85,7 +86,7 @@ CORS_ALLOWED_ORIGINS = [
 
 ]
 WSGI_APPLICATION = 'backend.wsgi.application'
-INTERNAL_IPS={
+INTERNAL_IPS = {
     "127.0.0.1",
 }
 
@@ -96,8 +97,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pharma',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
+        'USER': 'root',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -147,6 +148,6 @@ CORS_ALLOW_CREDENTIALS = True
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-REST_FRAMEWORK={
-    'COERCE_DECIMAL_TO_STRING':False
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False
 }
