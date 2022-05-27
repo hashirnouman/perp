@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
-import style from "./styles/DrugsTables.module.css";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   Thead,
@@ -117,7 +116,7 @@ const DrugsTable = () => {
   };
   var sr = 0;
   return (
-    <div className={style.main}>
+    <div>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>

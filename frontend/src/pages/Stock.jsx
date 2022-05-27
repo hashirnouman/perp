@@ -7,7 +7,6 @@ import StockTable from "../components/StockTable";
 import AddStock from "../components/AddStock";
 const Stock = () => {
   const [drug, setDrug] = useState(null);
-  const [table, setTable] = useState(null);
   useEffect(() => {
     fetch("http://127.0.0.1:8000/pos/druglist/drug")
       .then((res) => {
@@ -15,13 +14,6 @@ const Stock = () => {
       })
       .then((data) => {
         setDrug(data);
-      });
-    fetch("http://127.0.0.1:8000/pos/stock")
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        setTable(data);
       });
   }, []);
   return (
@@ -35,7 +27,7 @@ const Stock = () => {
             </TabList>
             <TabPanels>
               <TabPanel>
-                <StockTable table={table} />
+                <StockTable />
               </TabPanel>
               <TabPanel>
                 <AddStock drug={drug} />

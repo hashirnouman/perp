@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import {
   FormControl,
@@ -10,36 +10,38 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 const AddStock = ({ drug }) => {
-  const [invoice, setInvoice] = useState(null);
-  const [name, setName] = useState(null);
-  const [contact, setContact] = useState(null);
+  const toast = useToast();
+  const [invoice, setInvoice] = useState("");
+  const [name, setName] = useState("");
+  const [contact, setContact] = useState("");
   const [packet, setPacket] = useState(null);
   const [bill, setBill] = useState(null);
-  const [id, setId] = useState(null);
-
-  const handleSubmit = async (e) => {
+  const [drug_name, setDrugname] = useState("");
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await axios
+    axios
       .post("http://127.0.0.1:8000/pos/stock", {
         invoice_number: invoice,
         supplier_name: name,
         supplier_contact: contact,
         total_quantity: packet,
         total_bill: bill,
-        drug_id: id,
+        drug_name: drug_name,
       })
-      .then((response) => {
-        console.log(response.status);
-        if (response.status == 200) {
-          alert("data added");
+      .then((res) => {
+        if (res.status == 200) {
+          setInvoice("");
+          setName("");
           setPacket("");
           setBill("");
           setContact("");
-          setInvoice("");
-          setName("");
-          setId("");
-          console.log({
-            id
+          setDrugname("");
+          toast({
+            title: "Stock added",
+            description: "We've added new stock details.",
+            status: "success",
+            duration: 2000,
+            isClosable: true,
           });
         }
       });
@@ -63,9 +65,7 @@ const AddStock = ({ drug }) => {
                   bg="white"
                   required
                   value={name}
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <Input
                   placeholder="Enter Subppier Contact Number"
@@ -78,12 +78,12 @@ const AddStock = ({ drug }) => {
                   placeholder="Select Medicine"
                   bg="white"
                   required
-                  value={id}
-                  onChange={(e) => setId(e.target.value)}
+                  value={drug_name}
+                  onChange={(e) => setDrugname(e.target.value)}
                 >
                   {drug.map((item, index) => {
                     return (
-                      <option key={index} value={item.id}>
+                      <option key={index} value={item.drug_name}>
                         {item.drug_name}
                       </option>
                     );
