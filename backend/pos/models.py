@@ -56,7 +56,6 @@ class MedicineStock(models.Model):
     supplier_contact = models.TextField(default=None)
     total_quantity = models.IntegerField(default=None)
     total_bill = models.IntegerField(default=None)
-    drug_id = models.ForeignKey(
-        Drugs, on_delete=models.PROTECT, null=False, blank=True)
+    drug_name = models.TextField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

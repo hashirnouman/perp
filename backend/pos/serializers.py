@@ -25,5 +25,4 @@ class SubCategoriesSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicineStock
-        fields = ['invoice_number', 'supplier_name',
-                  'supplier_contact', 'total_quantity', 'total_bill', 'drug_id']
+        fields = '__all__'
