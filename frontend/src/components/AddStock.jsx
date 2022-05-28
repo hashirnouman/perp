@@ -11,7 +11,7 @@ import {
 import { useToast } from "@chakra-ui/react";
 const AddStock = ({ drug }) => {
   const toast = useToast();
-  const [invoice, setInvoice] = useState("");
+  const [invoice, setInvoice] = useState(Math.floor(Math.random() * 1000));
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [packet, setPacket] = useState(null);
@@ -29,8 +29,9 @@ const AddStock = ({ drug }) => {
         drug_name: drug_name,
       })
       .then((res) => {
+        console.log("Response", res.data);
         if (res.status == 200) {
-          setInvoice("");
+          setInvoice(Math.floor(Math.random() * 1000));
           setName("");
           setPacket("");
           setBill("");
@@ -38,9 +39,9 @@ const AddStock = ({ drug }) => {
           setDrugname("");
           toast({
             title: "Stock added",
-            description: "We've added new stock details.",
+            description: `We've added new stock details. The invoice number of this stock is ${invoice}`,
             status: "success",
-            duration: 2000,
+            duration: 5000,
             isClosable: true,
           });
         }
@@ -58,7 +59,8 @@ const AddStock = ({ drug }) => {
                   bg="white"
                   required
                   value={invoice}
-                  onChange={(e) => setInvoice(e.target.value)}
+                  disabled
+                  // onChange={(e) => setInvoice(e.target.value)}
                 />
                 <Input
                   placeholder="Enter Subppier name"

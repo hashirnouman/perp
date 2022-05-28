@@ -5,14 +5,15 @@ import Stock from "./pages/Stock";
 import Forecast from "./pages/Forecast";
 import Invoice from "./pages/chemist/Invoice";
 import OrderHistory from "./pages/chemist/OrderHistory";
-import RemoteOrder from "./pages/chemist/RemoteOrder";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Index from "./pages/Index";
 
+
+import CustomerPage from "./pages/customer/CustomerPage";
+
 function App() {
   return (
-    
     <Router>
       <Switch>
         <Route exact path="/">
@@ -38,14 +39,15 @@ function App() {
         <Route path="/orderhistroy">
           <OrderHistory />
         </Route>
-        <Route path="/remoteorder">
-          <RemoteOrder />
-        </Route>
+
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/register">
           <Register />
+        </Route>
+        <Route exact path="/shop">
+          <CustomerPage />
         </Route>
       </Switch>
     </Router>

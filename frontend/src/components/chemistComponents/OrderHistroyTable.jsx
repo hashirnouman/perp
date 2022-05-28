@@ -1,54 +1,65 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react";
+import axios from "axios";
 const OrderHistroyTable = () => {
+  const [tableData, setTableData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://127.0.0.1:8000/pos/orders")
+      .then((response) => {
+        console.log(response.data, "Response data");
+        setTableData(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+    // fetch("http://127.0.0.1:8000/pos/orders")
+    //   .then((res) => {
+    //     return res.json();
+    //   })
+    //   .then((data) => {
+    //     setTableData(data);
+    //   });
+  }, []);
+  var sr = 0;
   return (
     <div>
-      <TableContainer>
-        <Table variant="simple" bg="white">
-          <TableCaption>Imperial to metric conversion factors</TableCaption>
-          <Thead>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
-            </Tr>
-          </Tfoot>
-        </Table>
-      </TableContainer>
+      {tableData && (
+        <TableContainer>
+          <Table variant="simple" bg="white">
+            <Thead>
+              <Tr>
+                <Th>Sr#</Th>
+                <Th>order number</Th>
+                <Th>Status</Th>
+                <Th>Description</Th>
+                <Th>Type</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {tableData.map((iterator, index) => {
+                return (
+                  <Tr key={index}>
+                    <Td>{++sr}</Td>
+                    <Td> {iterator.order_number}</Td>
+                    <Td>{iterator.status}</Td>
+                    <Td>{iterator.description}</Td>
+                    <Td>{iterator.type}</Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
     </div>
   );
 };

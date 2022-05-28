@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Center, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
-import "./styles/Home.css";
+
 import AdminLayouts from "../Layouts/AdminLayouts";
 import AddDrug from "../components/AddDrug";
 import Category from "../components/Category";

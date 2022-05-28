@@ -12,10 +12,6 @@ export const ChemistSliderdata = [
         "image": orderhistory,
         "path": "/orderhistroy"
     },
-    {
-        "title": "Remote order",
-        "image": remoteorder,
-        "path": "/remoteorder"
-    }
+   
 
 ]

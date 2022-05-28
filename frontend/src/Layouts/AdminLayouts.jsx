@@ -3,22 +3,21 @@ import React from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import { useLocation } from "react-router-dom";
-
+import styles from "./AdminLayout.module.css";
 const AdminLayouts = ({ children }) => {
   const location = useLocation();
   return (
-    <div style={{ scrollBehavior: "unset" }}>
+    <>
       <Flex>
         <Sidebar />
-
-        <Flex direction="column" grow={5}>
+        <Flex direction="column" grow={5} className={styles.main}>
           <Header locationName={location.pathname} />
-          <Box bg="gray.200" minH="91vh" p={2}>
-            <div style={{ overflowY: "auto" }}>{children}</div>
+          <Box bg="gray.200" p={2} className={styles.main}>
+            <div>{children}</div>
           </Box>
         </Flex>
       </Flex>
-    </div>
+    </>
   );
 };
 

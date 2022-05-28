@@ -26,7 +26,6 @@ import {
   Legend,
   CartesianGrid,
 } from "recharts";
-import "./styles/Home.css";
 import React from "react";
 import AdminLayouts from "../Layouts/AdminLayouts";
 const data01 = [
@@ -84,8 +83,8 @@ const data02 = [
 
 const Home = () => {
   return (
-    <AdminLayouts>
-      <div className="main">
+    <div>
+      <AdminLayouts>
         <div>
           <HStack>
             <Box
@@ -226,8 +225,8 @@ const Home = () => {
             </GridItem>
           </Grid>
         </>
-      </div>
-    </AdminLayouts>
+      </AdminLayouts>
+    </div>
   );
 };
 
