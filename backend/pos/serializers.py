@@ -1,6 +1,7 @@
+from dataclasses import fields
 from unicodedata import category
 from rest_framework import serializers
-from .models import Drugs, Categories, SubCategory, MedicineStock
+from .models import Drugs, Categories, SubCategory, MedicineStock, Orders
 
 
 class DrugsSerializer(serializers.ModelSerializer):
@@ -25,4 +26,11 @@ class SubCategoriesSerializer(serializers.ModelSerializer):
 class StockSerializer(serializers.ModelSerializer):
     class Meta:
         model = MedicineStock
+        fields = ['invoice_number', 'supplier_name',
+                  'supplier_contact', 'total_quantity', 'total_bill', 'drug_name', 'created_at']
+
+
+class OrdersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
         fields = '__all__'

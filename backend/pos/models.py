@@ -35,10 +35,10 @@ class Customers(models.Model):
 
 
 class Orders (models.Model):
-    statusArray = [("case1", "delivered"), ("case2", "inprogress")]
-    status = models.CharField(
-        max_length=255, choices=statusArray, default=statusArray[0])
-    invoce_number = models.IntegerField(default=None)
+    status = models.TextField(default=None)
+    order_number = models.IntegerField(default=None)
+    description = models.TextField(default=None)
+    type = models.TextField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

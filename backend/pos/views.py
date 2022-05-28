@@ -13,8 +13,8 @@ from rest_framework import status
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from rest_framework.decorators import api_view
-from .models import Drugs, Categories, MedicineStock, SubCategory
-from .serializers import DrugsSerializer, CategoriesSerializer, SubCategoriesSerializer, StockSerializer
+from .models import Drugs, Categories, MedicineStock, SubCategory, Orders
+from .serializers import DrugsSerializer, CategoriesSerializer, SubCategoriesSerializer, StockSerializer, OrdersSerializer
 # Create your views here.
 
 
@@ -64,24 +64,35 @@ def singleDrug(request, id):
     if request.method == 'DELETE':
         drug.delete()
         return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
-
     if request.method == 'PUT':
-
         serializer = DrugsSerializer(drug, data=request.data)
         if serializer.is_valid():
             serializer.save()
-
     return Response(serializer.data)
 
 
 @api_view(['GET', 'POST'])
 def Stock(request):
     if request.method == 'GET':
-        queryset = MedicineStock.objects.all()
+        queryset = MedicineStock.objects.all().order_by('-created_at')
         serializer = StockSerializer(queryset, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = StockSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            print(serializer.data)
+    return Response(serializer.data)
+
+
+@api_view(['GET', 'POST'])
+def Order(request):
+    if request.method == 'GET':
+        queryset = Orders.objects.all()
+        serializer = OrdersSerializer(queryset, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = OrdersSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
     return Response(serializer.data)
