@@ -1,14 +1,14 @@
 from dataclasses import fields
+from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
-from .models import Drugs, Categories, SubCategory, MedicineStock, Orders
+from .models import Drugs, Categories, Order_item, Sales, SubCategory, MedicineStock, Orders
 
 
 class DrugsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Drugs
-        fields = ['id', 'drug_name', 'manufacturer_name', 'salt_name', 'sub_category_id',
-                  'potency', 'price_per_packet', 'units_per_packet', 'variant', 'category_id']
+        fields = '__all__'
 
 
 class CategoriesSerializer(serializers.ModelSerializer):
@@ -33,4 +33,14 @@ class StockSerializer(serializers.ModelSerializer):
 class OrdersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orders
+        fields = '__all__'
+
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Order_item
+        fields = '__all__'
+
+class SalesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sales
         fields = '__all__'

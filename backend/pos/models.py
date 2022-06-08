@@ -1,3 +1,4 @@
+from unicodedata import category
 from django.db import models
 
 # Create your models here.
@@ -17,14 +18,11 @@ class Drugs(models.Model):
     drug_name = models.TextField()
     manufacturer_name = models.TextField()
     salt_name = models.TextField()
-    sub_category_id = models.ForeignKey(
-        SubCategory, on_delete=models.PROTECT, null=False, blank=True)
-    category_id = models.ForeignKey(
-        Categories, on_delete=models.PROTECT, null=False, blank=True, default=None)
+    category_name = models.TextField()
     price_per_packet = models.IntegerField()
     units_per_packet = models.IntegerField()
     potency = models.IntegerField()
-    variant = models.TextField()
+
 
 
 class Customers(models.Model):
@@ -35,19 +33,21 @@ class Customers(models.Model):
 
 
 class Orders (models.Model):
-    status = models.TextField(default=None)
+    status = models.IntegerField(default=None)
     order_number = models.IntegerField(default=None)
-    description = models.TextField(default=None)
-    type = models.TextField(default=None)
+    customer_name  = models.TextField(default=None)
+    remote = models.IntegerField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+  
 
 
 class Order_item(models.Model):
-    drug_id = models.OneToOneField(Drugs, on_delete=models.PROTECT)
+    drug_id = models.ForeignKey(Drugs, on_delete=models.PROTECT)
     order_id = models.ForeignKey(Orders, on_delete=models.PROTECT)
     quantity = models.IntegerField(default=None)
     total = models.FloatField(default=None)
+    
+
 
 
 class MedicineStock(models.Model):
@@ -59,3 +59,12 @@ class MedicineStock(models.Model):
     drug_name = models.TextField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+class Sales (models.Model):
+    Id = models.IntegerField(unique=True)
+    drug_id_id = models.IntegerField()
+    value_occurrence = models.IntegerField()
+    created_at = models.DateTimeField()
+    class Meta:
+        managed = False
+        db_table = 'sales'
