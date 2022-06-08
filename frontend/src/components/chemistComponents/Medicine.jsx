@@ -33,7 +33,7 @@ const Medicine = ({ med, onDelete }) => {
         >
           <Box>
             <Stack direction="row" spacing={3}>
-              <p>{med.medicine}</p>
+              <p>{med}</p>
               <p>qunatity: {counter}</p>
             </Stack>
           </Box>

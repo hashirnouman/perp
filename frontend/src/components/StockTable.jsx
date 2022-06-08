@@ -14,23 +14,24 @@ import axios from "axios";
 const StockTable = () => {
   const [table, setTable] = useState([]);
   const [loading, isLoading] = useState(true);
+  const url = "http://127.0.0.1:8000/pos/stock";
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/pos/stock")
+      .get(url)
       .then((response) => {
         setTable(response.data);
         isLoading(false);
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [url]);
   var sr = 0;
 
   return (
     <div>
       {table && (
-        <TableContainer>
-          <Table variant="simple" bg="white">
-            <Skeleton isLoaded={!loading} >
+        <Skeleton isLoaded={!loading}>
+          <TableContainer borderRadius="20">
+            <Table variant="simple" bg="white">
               <Thead>
                 <Tr>
                   <Th>Sr#</Th>
@@ -59,9 +60,9 @@ const StockTable = () => {
                   );
                 })}
               </Tbody>
-            </Skeleton>
-          </Table>
-        </TableContainer>
+            </Table>
+          </TableContainer>
+        </Skeleton>
       )}
     </div>
   );
