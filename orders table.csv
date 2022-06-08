@@ -1,0 +1,11 @@
+id,stauts,order_number,created_at,customer_name,remote
+1,1,3675,2021/08/20,Susette Schoffel,0
+2,0,626,2022/04/04,Al Vaughton,1
+3,0,737,2022/05/01,Bevvy Singers,0
+4,1,2464,2021/06/30,Darcy Nurcombe,1
+5,1,2856,2021/09/12,Isa Furmenger,0
+6,0,2393,2021/08/10,Willis Stanbrooke,0
+7,0,2783,2021/08/16,Upton Sweetsur,1
+8,0,1199,2021/12/31,Mirella Pocklington,1
+9,0,925,2021/12/01,Inez Dibson,0
+10,1,2665,2021/11/17,Hobie Reglar,1

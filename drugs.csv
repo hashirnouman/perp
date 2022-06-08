@@ -1,0 +1,11 @@
+id,drug_name,manufacturer_name,salt_name,potency,price_per_packet,units_per_packet,category_name
+1,LBel,"VENTURA INTERNATIONAL LTD.,",Octinoxate,228,6,26,Hydrocortisone
+2,Bupropion Hydrochloride,Rebel Distributors Corp.,Bupropion Hydrochloride,134,316,27,verapamil hydrochloride
+3,Maybelline New York Instant Age Rewind Eraser Treatment Makeup Broad Spectrum SPF 18 Sunscreen,L'Oreal USA Products Inc,Octinoxate,303,181,24,MENTHOL
+4,Apis Belladonna Fever Relief,Uriel Pharmacy Inc,"ATROPA BELLADONNA, APIS MELLIFERA",117,42,11,Triclosan
+5,Aloe Up,"Prime Packaging, Inc.","Avobenzone, Octisalate, and Octocrylene",270,88,26,Cefdinir
+6,Simvastatin,Contract Pharmacy Services-PA,Simvastatin,467,244,21,Levothyroxine Sodium
+7,Prednisone,Unit Dose Services,Prednisone,987,90,28,"sodium cation, sodium bicarbonate, anhydrous dextrose, magnesium sulfate, potassium chloride, calcium chloride, sodium phosphate"
+8,Cefdinir,BluePoint Laboratories,Cefdinir,42,3,12,HYDROQUINONE
+9,Achromycin V,Heritage Pharmaceuticals Inc.,Tetracycline HCl,676,349,19,tazobactam sodium and piperacillin sodium
+10,Walgreens SUNSCREEN,WALGREEN CO.,"OCTOCRYLENE, ZINC OXIDE",656,283,9,Diltiazem Hydrochloride
