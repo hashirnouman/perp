@@ -7,18 +7,11 @@ from django.db import models
 class Categories(models.Model):
     category = models.CharField(max_length=255,  unique=True)
 
-
-class SubCategory(models.Model):
-    category_id = models.ForeignKey(
-        Categories, on_delete=models.PROTECT, null=False, blank=True)
-    sub_category = models.CharField(max_length=255,  unique=True)
-
-
 class Drugs(models.Model):
     drug_name = models.TextField()
     manufacturer_name = models.TextField()
     salt_name = models.TextField()
-    category_name = models.TextField()
+    category_id = models.ForeignKey(Categories, on_delete=models.CASCADE)
     price_per_packet = models.IntegerField()
     units_per_packet = models.IntegerField()
     potency = models.IntegerField()
@@ -42,8 +35,8 @@ class Orders (models.Model):
 
 
 class Order_item(models.Model):
-    drug_id = models.ForeignKey(Drugs, on_delete=models.PROTECT)
-    order_id = models.ForeignKey(Orders, on_delete=models.PROTECT)
+    drug_id = models.ForeignKey(Drugs, on_delete=models.CASCADE)
+    order_id = models.ForeignKey(Orders, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=None)
     total = models.FloatField(default=None)
     

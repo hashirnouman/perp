@@ -2,7 +2,7 @@ from dataclasses import fields
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
-from .models import Drugs, Categories, Order_item, Sales, SubCategory, MedicineStock, Orders
+from .models import Drugs, Categories, Order_item, Sales,  MedicineStock, Orders
 
 
 class DrugsSerializer(serializers.ModelSerializer):
@@ -16,11 +16,6 @@ class CategoriesSerializer(serializers.ModelSerializer):
         model = Categories
         fields = '__all__'
 
-
-class SubCategoriesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = SubCategory
-        fields = '__all__'
 
 
 class StockSerializer(serializers.ModelSerializer):
