@@ -30,7 +30,6 @@ const DrugsTable = () => {
   const [drug, setDrug] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [salt, setSalt] = useState("");
-  const [variant, setVariant] = useState("");
   const [potency, setPotency] = useState(null);
   const [price, setPrice] = useState(null);
   const [unit, setUnit] = useState(null);
@@ -65,7 +64,6 @@ const DrugsTable = () => {
     setDrug(d.drug_name);
     setManufacturer(d.manufacturer_name);
     setSalt(d.salt_name);
-    setVariant(d.variant);
     setPotency(d.potency);
     setPrice(d.price_per_packet);
     setUnit(d.units_per_packet);
@@ -74,45 +72,14 @@ const DrugsTable = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const drugDetails = {
+    axios.put(`http://127.0.0.1:8000/pos/druglist/drug/${id}`, {
       drug_name: drug,
       manufacturer_name: manufacturer,
       salt_name: salt,
       potency: potency,
       price_per_packet: price,
-      units_per_packet: unit,
-      variant: variant,
-    };
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    var requestOptions = {
-      method: "PUT",
-      headers: myHeaders,
-      body: JSON.stringify(drugDetails),
-    };
-    fetch(`http://127.0.0.1:8000/pos/druglist/drug/${id}`, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
-        fetch("http://127.0.0.1:8000/pos/druglist/drug", {})
-          .then((res) => res.json())
-          .then((data) => {
-            setDrugList(data);
-          })
-          .then(() => {
-            toast({
-              title: "Drug Updated",
-              description: "We've Updated details of drug.",
-              status: "success",
-              duration: 3000,
-              isClosable: true,
-            });
-          });
-
-        onClose();
-      })
-      .catch((error) => console.log("error", error));
+      units_per_packet: units,
+    });
   };
   var sr = 0;
   return (
@@ -142,12 +109,6 @@ const DrugsTable = () => {
                   placeholder="Enter Salt Name"
                   value={salt}
                   onChange={(e) => setSalt(e.target.value)}
-                  isRequired
-                />
-                <Input
-                  placeholder="Enter variant"
-                  value={variant}
-                  onChange={(e) => setVariant(e.target.value)}
                   isRequired
                 />
 
@@ -190,6 +151,7 @@ const DrugsTable = () => {
         <Table colorScheme="facebook">
           <Thead>
             <Tr>
+              <Th>Sr#</Th>
               <Th>id</Th>
               <Th>Drug Name</Th>
               <Th>Manufacturer Name</Th>
@@ -197,21 +159,21 @@ const DrugsTable = () => {
               <Th>Potency (mg)</Th>
               <Th>Price per packet</Th>
               <Th>Unit(s) per packet</Th>
-              <Th>Variant</Th>
             </Tr>
           </Thead>
           <Tbody>
             {drugList.map((d, index) => {
               return (
-                <Tr key={d.id}>
+                <Tr key={index}>
                   <Td>{++sr}</Td>
+                  <Td>{d.id}</Td>
                   <Td>{d.drug_name}</Td>
                   <Td>{d.manufacturer_name}</Td>
                   <Td>{d.salt_name}</Td>
                   <Td>{d.potency}</Td>
                   <Td>{d.price_per_packet}</Td>
                   <Td>{d.units_per_packet}</Td>
-                  <Td>{d.variant}</Td>
+                  <Td>{d.category_id}</Td>
 
                   <Td>
                     <IconButton

@@ -22,9 +22,7 @@ import {
 import axios from "axios";
 const Category = ({ categories }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [category, setCategory] = useState(null);
-  const [subCat, setSubCat] = useState("");
-  const [id, setId] = useState([]);
+  const [category, setCategory] = useState([]);
   const addCategory = (e) => {
     e.preventDefault();
     axios
@@ -35,20 +33,6 @@ const Category = ({ categories }) => {
         if (response.status == 200) {
           alert("Data added");
           setCategory("");
-        }
-      });
-  };
-  const addSubCategory = (e) => {
-    e.preventDefault();
-    axios
-      .post("http://127.0.0.1:8000/pos/druglist/subcategory", {
-        sub_category: subCat,
-        category_id: id,
-      })
-      .then((res) => {
-        if (res.status == 200) {
-          alert("Data added");
-          setSubCat("");
         }
       });
   };
@@ -72,7 +56,7 @@ const Category = ({ categories }) => {
             <Tabs isFitted>
               <TabList>
                 <Tab>Add Category</Tab>
-                <Tab> Add Sub-Category</Tab>
+                <Tab> Categories List</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
@@ -92,31 +76,11 @@ const Category = ({ categories }) => {
                 </TabPanel>
                 <TabPanel>
                   <Stack>
-                    <Select
-                      id="category"
-                      placeholder="Select Category"
-                      value={id}
-                      onChange={(e) => setId(e.target.value)}
-                    >
-                      {categories.map((item) => (
-                        <option key={item.id} value={item.id}>
-                          {item.category}
-                        </option>
-                      ))}
-                    </Select>
-                    <form onSubmit={addSubCategory}>
-                      <FormControl>
-                        <Input
-                          placeholder="Enter Sub-Category"
-                          value={subCat}
-                          onChange={(e) => setSubCat(e.target.value)}
-                          isRequired
-                        />
-                      </FormControl>
-                      <Button variant="solid" type="submit" colorScheme="blue">
-                        Add
-                      </Button>
-                    </form>
+                    {categories.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.category}
+                      </option>
+                    ))}
                   </Stack>
                 </TabPanel>
               </TabPanels>

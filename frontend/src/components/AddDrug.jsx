@@ -28,7 +28,6 @@ const AddDrug = ({ categories, sub_categories }) => {
   const [price, setPrice] = useState(null);
   const [unit, setUnit] = useState(null);
   const [id, setId] = useState(null);
-  const [id2, setId2] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -37,7 +36,6 @@ const AddDrug = ({ categories, sub_categories }) => {
         drug_name: drug,
         manufacturer_name: manufacturer,
         salt_name: salt,
-        sub_category_id: id2,
         potency: potency,
         price_per_packet: price,
         units_per_packet: unit,
@@ -116,17 +114,6 @@ const AddDrug = ({ categories, sub_categories }) => {
                       {categories.map((item, index) => (
                         <option key={index} value={item.id}>
                           {item.category}
-                        </option>
-                      ))}
-                    </Select>
-                    <Select
-                      placeholder="Select Category"
-                      value={id2}
-                      onChange={(e) => setId2(e.target.value)}
-                    >
-                      {sub_categories.map((item, index) => (
-                        <option key={index} value={item.id}>
-                          {item.sub_category}
                         </option>
                       ))}
                     </Select>

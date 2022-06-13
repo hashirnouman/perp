@@ -8,26 +8,25 @@ import Category from "../components/Category";
 import DrugsTable from "../components/DrugsTable";
 const DrugList = () => {
   const [categories, setCategories] = useState([]);
-  const [sub_categories, setSubCategories] = useState([]);
   const [drugList, setDrugList] = useState([]);
 
   const fetch = () => {
     let categoriesURL = "http://127.0.0.1:8000/pos/druglist/category";
-    let subcategoriesURL = "http://127.0.0.1:8000/pos/druglist/subcategory";
+
     let drugsURL = "http://127.0.0.1:8000/pos/druglist/drug";
 
     const categoriesRequest = axios.get(categoriesURL);
-    const subcategoriesRequest = axios.get(subcategoriesURL);
+    //  const subcategoriesRequest = axios.get(subcategoriesURL);
     const drugsRequest = axios.get(drugsURL);
     axios
-      .all([categoriesRequest, subcategoriesRequest, drugsRequest])
+      .all([categoriesRequest, drugsRequest])
       .then(
         axios.spread((...responses) => {
           const categoriesdata = responses[0];
-          const subcategoriesdata = responses[1];
-          const drugsdata = responses[2];
+          //  const subcategoriesdata = responses[1];
+          const drugsdata = responses[1];
           setCategories(categoriesdata.data);
-          setSubCategories(subcategoriesdata.data);
+          //  setSubCategories(subcategoriesdata.data);
           setDrugList(drugsdata.data);
         })
       )
@@ -51,10 +50,7 @@ const DrugList = () => {
                   bg="white"
                 />
               </FormControl>
-              <AddDrug
-                categories={categories}
-                sub_categories={sub_categories}
-              />
+              <AddDrug categories={categories} />
               <Category categories={categories} />
             </HStack>
           </Center>

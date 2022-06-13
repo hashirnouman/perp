@@ -13,8 +13,7 @@ import {
 } from "@chakra-ui/react";
 const AddMedicine = ({ drugs }) => {
   const [input, setInput] = useState("");
-  const text = useRef(null);
-  const dispatch = useDispatch();
+  const [medicine, setMedicine] = useState("");
   const [filteredData, setFilteredData] = useState([]);
 
   const handleFilter = (e) => {
@@ -30,13 +29,14 @@ const AddMedicine = ({ drugs }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    filteredData.filter((value) => {
-      // dispatch(medicineListActions.addMedicine({ medicine: value.drug_name }));
-      console.log(e.target.text);
-      <Medicine med={value.drug_name} />;
+    filteredData.filter((drugs) => {
+      // dispatch(medicineListActions.addMedicine({ medicine: drugs.drug_name }));
+      console.log(drugs.drug_name);
+      <Medicine med={drugs.drug_name} />;
     });
     setInput("");
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -60,8 +60,8 @@ const AddMedicine = ({ drugs }) => {
                       alignItems="center"
                       m={3}
                     >
-                      <Text value={drug.drug_name}>{drug.drug_name}</Text>
-                      <Button variant="solid" type="submit" colorScheme="blue">
+                      <Text>{drug.drug_name}</Text>
+                      <Button variant="solid" colorScheme="blue" type="submit">
                         Add
                       </Button>
                     </Stack>

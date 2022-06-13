@@ -4,14 +4,14 @@ import "../../pages/styles/Scroll.css";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { medicineListActions } from "../../store/medicineList/medicineListSlicer";
-const MedicineList = ({ meds, onDelete }) => {
+const MedicineList = ({ medicine }) => {
   const { drugs, total } = useSelector((state) => state.medicine);
   return (
     <>
       <div className="main2">
-        {drugs &&
-          drugs.map((drug) => {
-            return <Medicine key={drug.id} {...drug} />;
+        {medicine &&
+          medicine.map((drug) => {
+            return <Medicine key={drug.id}  />;
           })}
       </div>
       <Box w={400} minH={100} mt={5} bg="blue.700" color="white" p={10}>
