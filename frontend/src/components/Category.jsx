@@ -12,15 +12,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
-  Select,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
 } from "@chakra-ui/react";
 import axios from "axios";
-const Category = ({ categories }) => {
+const Category = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [category, setCategory] = useState([]);
   const addCategory = (e) => {
@@ -53,27 +47,26 @@ const Category = ({ categories }) => {
           <ModalHeader>Add Categories</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Tabs isFitted>
+            <form onSubmit={addCategory}>
+              <FormControl>
+                <Input
+                  placeholder="Enter Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  isRequired
+                />
+                <Button variant="solid" type="submit" colorScheme="blue">
+                  Add
+                </Button>
+              </FormControl>
+            </form>
+            {/* <Tabs isFitted>
               <TabList>
                 <Tab>Add Category</Tab>
                 <Tab> Categories List</Tab>
               </TabList>
               <TabPanels>
-                <TabPanel>
-                  <form onSubmit={addCategory}>
-                    <FormControl>
-                      <Input
-                        placeholder="Enter Category"
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        isRequired
-                      />
-                      <Button variant="solid" type="submit" colorScheme="blue">
-                        Add
-                      </Button>
-                    </FormControl>
-                  </form>
-                </TabPanel>
+                <TabPanel></TabPanel>
                 <TabPanel>
                   <Stack>
                     {categories.map((item) => (
@@ -84,7 +77,7 @@ const Category = ({ categories }) => {
                   </Stack>
                 </TabPanel>
               </TabPanels>
-            </Tabs>
+            </Tabs> */}
           </ModalBody>
           <ModalFooter>
             <Button colorScheme="blue" variant="ghost" mr={3} onClick={onClose}>

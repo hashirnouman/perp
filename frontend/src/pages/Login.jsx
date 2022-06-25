@@ -8,15 +8,31 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [redirect, setRedirect] = useState(false);
+  const [dat, setDat] = useState("");
   let history = useHistory();
   const toast = useToast();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // axios
+    //   .post("http://127.0.0.1:8002/api/login", {
+    //     email: email,
+    //     password: password,
+    //     roles: "admin",
+    //   })
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setDat(res.data);
+    //       window.localStorage.setItem("token", dat.token);
+    //       history.push("/dashboard");
+    //     }
+    //   });
+    history.push("/dashboard");
   };
 
   return (
@@ -40,7 +56,9 @@ const Login = () => {
               isRequired
             />
           </FormControl>
-          <Button type="submit">login</Button>
+          <Button type="submit" colorScheme="blue">
+            login
+          </Button>
         </Stack>
       </Center>
     </form>

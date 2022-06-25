@@ -19,6 +19,7 @@ import {
   Input,
   FormControl,
   Stack,
+  Skeleton,
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { EditIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -35,14 +36,17 @@ const DrugsTable = () => {
   const [unit, setUnit] = useState(null);
   const [id, setId] = useState(null);
   const [drugList, setDrugList] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [categoryId, setCategoryId] = useState(null);
+  const url = "http://127.0.0.1:8000/pos/druglist/drug";
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/pos/druglist/drug", {})
+    fetch(url, {})
       .then((res) => res.json())
       .then((data) => {
         setDrugList(data);
+        setLoading(false);
       });
-  }, []);
+  }, [url]);
   const handleDelete = (id) => {
     axios.delete(`http://127.0.0.1:8000/pos/druglist/drug/${id}`).then(() => {
       fetch("http://127.0.0.1:8000/pos/druglist/drug", {})
@@ -60,7 +64,6 @@ const DrugsTable = () => {
     });
   };
   const handleShow = (d) => {
-    setColData(d);
     setDrug(d.drug_name);
     setManufacturer(d.manufacturer_name);
     setSalt(d.salt_name);
@@ -68,18 +71,34 @@ const DrugsTable = () => {
     setPrice(d.price_per_packet);
     setUnit(d.units_per_packet);
     setId(d.id);
+    setCategoryId(d.category_id);
     onOpen();
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.put(`http://127.0.0.1:8000/pos/druglist/drug/${id}`, {
-      drug_name: drug,
-      manufacturer_name: manufacturer,
-      salt_name: salt,
-      potency: potency,
-      price_per_packet: price,
-      units_per_packet: units,
-    });
+    axios
+      .put(`http://127.0.0.1:8000/pos/druglist/drug/${id}`, {
+        drug_name: drug,
+        manufacturer_name: manufacturer,
+        salt_name: salt,
+        potency: potency,
+        price_per_packet: price,
+        units_per_packet: parseInt(unit),
+        id: id,
+        category_id: categoryId,
+      })
+      .then(() => {
+        axios.get(url).then((res) => {
+          setDrugList(res.data);
+          toast({
+            title: "Drug Updated",
+            description: "We've Updated details of drug.",
+            status: "info",
+            duration: 2000,
+            isClosable: true,
+          });
+        });
+      });
   };
   var sr = 0;
   return (
@@ -87,7 +106,7 @@ const DrugsTable = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Update Drug</ModalHeader>
           <ModalCloseButton />
           <ModalBody>{/* <Lorem count={2} /> */}</ModalBody>
           <form onSubmit={handleSubmit}>
@@ -148,50 +167,51 @@ const DrugsTable = () => {
         </ModalContent>
       </Modal>
       {drugList && (
-        <Table colorScheme="facebook">
-          <Thead>
-            <Tr>
-              <Th>Sr#</Th>
-              <Th>id</Th>
-              <Th>Drug Name</Th>
-              <Th>Manufacturer Name</Th>
-              <Th>Salt Name</Th>
-              <Th>Potency (mg)</Th>
-              <Th>Price per packet</Th>
-              <Th>Unit(s) per packet</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {drugList.map((d, index) => {
-              return (
-                <Tr key={index}>
-                  <Td>{++sr}</Td>
-                  <Td>{d.id}</Td>
-                  <Td>{d.drug_name}</Td>
-                  <Td>{d.manufacturer_name}</Td>
-                  <Td>{d.salt_name}</Td>
-                  <Td>{d.potency}</Td>
-                  <Td>{d.price_per_packet}</Td>
-                  <Td>{d.units_per_packet}</Td>
-                  <Td>{d.category_id}</Td>
+        <Skeleton isLoaded={!loading}>
+          <Table colorScheme="facebook">
+            <Thead>
+              <Tr>
+                <Th>Sr#</Th>
+                <Th>id</Th>
+                <Th>Drug Name</Th>
+                <Th>Manufacturer Name</Th>
+                <Th>Salt Name</Th>
+                <Th>Potency (mg)</Th>
+                <Th>Price per packet</Th>
+                <Th>Unit(s) per packet</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {drugList.map((d, index) => {
+                return (
+                  <Tr key={index}>
+                    <Td>{++sr}</Td>
+                    <Td>{d.id}</Td>
+                    <Td>{d.drug_name}</Td>
+                    <Td>{d.manufacturer_name}</Td>
+                    <Td>{d.salt_name}</Td>
+                    <Td>{d.potency}</Td>
+                    <Td>{d.price_per_packet}</Td>
+                    <Td>{d.units_per_packet}</Td>
 
-                  <Td>
-                    <IconButton
-                      icon={<EditIcon />}
-                      onClick={(e) => handleShow(d, index)}
-                    />
-                  </Td>
-                  <Td>
-                    <IconButton
-                      icon={<DeleteIcon />}
-                      onClick={() => handleDelete(d.id)}
-                    />
-                  </Td>
-                </Tr>
-              );
-            })}
-          </Tbody>
-        </Table>
+                    <Td>
+                      <IconButton
+                        icon={<EditIcon />}
+                        onClick={(e) => handleShow(d, index)}
+                      />
+                    </Td>
+                    <Td>
+                      <IconButton
+                        icon={<DeleteIcon />}
+                        onClick={() => handleDelete(d.id)}
+                      />
+                    </Td>
+                  </Tr>
+                );
+              })}
+            </Tbody>
+          </Table>
+        </Skeleton>
       )}
     </div>
   );

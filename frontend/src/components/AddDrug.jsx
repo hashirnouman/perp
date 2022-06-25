@@ -23,7 +23,7 @@ const AddDrug = ({ categories, sub_categories }) => {
   const [drug, setDrug] = useState("");
   const [manufacturer, setManufacturer] = useState("");
   const [salt, setSalt] = useState("");
-  const [variant, setVariant] = useState("");
+
   const [potency, setPotency] = useState(null);
   const [price, setPrice] = useState(null);
   const [unit, setUnit] = useState(null);
@@ -39,7 +39,6 @@ const AddDrug = ({ categories, sub_categories }) => {
         potency: potency,
         price_per_packet: price,
         units_per_packet: unit,
-        variant: variant,
         category_id: id,
       })
       .then((res) => {
@@ -54,24 +53,25 @@ const AddDrug = ({ categories, sub_categories }) => {
           setDrug("");
           setManufacturer("");
           setSalt("");
-          setPotency(null);
-          setPrice(null);
+          setPotency("");
+          setPrice("");
           setVariant("");
-          setUnit(null);
-          setId(null);
+          setUnit("");
+          setId("");
         }
       });
-    console.log(id2);
   };
   return (
     <div>
-      <IconButton
-        icon={<IoMdAddCircle />}
-        size="lg"
+      <Button
+        variant="solid"
         bg="blue.800"
         color="white"
+        colorScheme="blue"
         onClick={onOpen}
-      />
+      >
+        Add Drug
+      </Button>
       {categories && (
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -100,12 +100,7 @@ const AddDrug = ({ categories, sub_categories }) => {
                       onChange={(e) => setSalt(e.target.value)}
                       isRequired
                     />
-                    <Input
-                      placeholder="Enter variant"
-                      value={variant}
-                      onChange={(e) => setVariant(e.target.value)}
-                      isRequired
-                    />
+
                     <Select
                       placeholder="Select Category"
                       value={id}

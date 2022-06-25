@@ -39,9 +39,7 @@ const OrderHistroyTable = () => {
               <Tr>
                 <Th>Sr#</Th>
                 <Th>order number</Th>
-                <Th>Status</Th>
-                <Th>Description</Th>
-                <Th>Type</Th>
+                <Th>date</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -50,9 +48,7 @@ const OrderHistroyTable = () => {
                   <Tr key={index}>
                     <Td>{++sr}</Td>
                     <Td> {iterator.order_number}</Td>
-                    <Td>{iterator.status}</Td>
-                    <Td>{iterator.description}</Td>
-                    <Td>{iterator.type}</Td>
+                    <Td>{iterator.created_at}</Td>
                   </Tr>
                 );
               })}

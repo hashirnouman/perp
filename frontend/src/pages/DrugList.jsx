@@ -1,11 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Center, FormControl, HStack, Input, Stack } from "@chakra-ui/react";
+import {
+  Center,
+  FormControl,
+  HStack,
+  Input,
+  Stack,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@chakra-ui/react";
 
 import AdminLayouts from "../Layouts/AdminLayouts";
 import AddDrug from "../components/AddDrug";
 import Category from "../components/Category";
 import DrugsTable from "../components/DrugsTable";
+import CategoriesTables from "../components/CategoriesTables";
 const DrugList = () => {
   const [categories, setCategories] = useState([]);
   const [drugList, setDrugList] = useState([]);
@@ -43,19 +55,25 @@ const DrugList = () => {
         <Stack>
           <Center>
             <HStack spacing={5}>
-              <FormControl isRequired w={900}>
-                <Input
-                  id="search-text"
-                  placeholder="Search Medicines"
-                  bg="white"
-                />
-              </FormControl>
               <AddDrug categories={categories} />
               <Category categories={categories} />
             </HStack>
           </Center>
         </Stack>
-        <DrugsTable />
+        <Tabs isFitted variant="soft-rounded" mt={9}>
+          <TabList>
+            <Tab>Drugs</Tab>
+            <Tab>Cetegories</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <DrugsTable />
+            </TabPanel>
+            <TabPanel>
+              <CategoriesTables />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </AdminLayouts>
     </div>
   );
