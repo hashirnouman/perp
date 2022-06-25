@@ -6,6 +6,7 @@ from .models import User
 import jwt, datetime
 
 
+
 # Create your views here.
 class RegisterView(APIView):
     def post(self, request):
@@ -40,8 +41,10 @@ class LoginView(APIView):
 
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
-            'jwt': token
+            'jwt': token,
+            'type':user.type
         }
+
         return response
 
 
@@ -63,6 +66,7 @@ class UserView(APIView):
         return Response(serializer.data)
 
 
+
 class LogoutView(APIView):
     def post(self, request):
         response = Response()
@@ -71,3 +75,4 @@ class LogoutView(APIView):
             'message': 'success'
         }
         return response
+

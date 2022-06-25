@@ -43,7 +43,7 @@ def Category(request):
 @api_view(['GET', 'POST'])
 def drug(request):
     if request.method == 'GET':
-        queryset = Drugs.objects.all()
+        queryset = Drugs.objects.all().order_by('-id')
         serializer = DrugsSerializer(queryset, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -91,10 +91,28 @@ def Order(request):
             serializer.save()
     return Response(serializer.data)
 
-
+@api_view(['POST'])
+def OrderItems(request):
+    if request.method == 'POST':
+        serializers = OrderItemSerializer(data=request.data)
+        if serializers.is_valid():
+            serializers.save()
+    return Response(serializers.data)
+    
 @api_view(['GET'])
 def Predict(request):
     if request.method == 'GET':
         queryset = Sales.objects.all()
         serializer = SalesSerializer(queryset, many=True)
-        return Response(serializer.data)                             
+        return Response(serializer.data)    
+
+@api_view(['GET'])
+def AllDrug(request):
+    if request.method == 'GET':
+        queryset = Drugs.objects.count()
+        return JsonResponse(queryset, safe=False)
+@api_view(['GET'])
+def TotalOrders(request):
+    if request.method == 'GET':
+        queryset = Orders.objects.count()
+        return JsonResponse(queryset, safe=False)

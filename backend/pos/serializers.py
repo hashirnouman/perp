@@ -1,4 +1,5 @@
 from dataclasses import fields
+from operator import mod
 from pyexpat import model
 from unicodedata import category
 from rest_framework import serializers
@@ -38,4 +39,8 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class SalesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sales
+        fields = '__all__'
+class OrderItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order_item
         fields = '__all__'

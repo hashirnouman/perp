@@ -28,7 +28,6 @@ class Customers(models.Model):
 class Orders (models.Model):
     status = models.IntegerField(default=None)
     order_number = models.IntegerField(default=None)
-    customer_name  = models.TextField(default=None)
     remote = models.IntegerField(default=None)
     created_at = models.DateTimeField(auto_now_add=True)
   

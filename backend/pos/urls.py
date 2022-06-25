@@ -8,5 +8,7 @@ urlpatterns = [
     path('druglist/drug/<int:id>', views.singleDrug),
     path('stock', views.Stock),
     path('orders', views.Order),
-    path('forecast', views.Predict)
+    path('forecast', views.Predict),
+    path('alldrug', views.AllDrug),
+    path('totalOrders',views.TotalOrders)
 ]
